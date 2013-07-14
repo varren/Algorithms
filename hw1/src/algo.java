@@ -6,9 +6,6 @@ public class algo {
         double b = Math.pow(10,x);//Math.pow(2,Math.pow(2,Math.log(x)));
         double c = Math.pow(x,1.5);//Math.pow(x,2.5);
         double d =Math.pow(2,Math.sqrt(Math.log(x))); //Math.pow(2,Math.sqrt(x));
-
-
-
         double o=5;
         double g =3 ;
         double e = Math.pow(x,o/g);//Math.log(x)*Math.sqrt(x);
