@@ -1,5 +1,5 @@
 
-public class algo {
+public class Hw1Question5Tests {
     public static void main(String[] args) {
         double x = 1000000000;
         double a = Math.sqrt(x);//Math.pow(2,Math.log(x));

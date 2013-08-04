@@ -1,96 +1,50 @@
-import java.io.*;
-import java.util.ArrayList;
 
+    /*
+     * Your task is to compute the number of inversions in the file given,
+     * where the ith row of the file indicates the ith entry of an array.
+     * Because of the large size of this array,
+     * you should implement the fast divide-and-conquer algorithm covered in the video lectures.
+     *
+    */
 public class MergeSort {
-    private static final String filename = "/IntegerArray.txt";
-    private static long inversionsCounter =0;
+    private long inversions = 0;
 
-    public static void main(String[]args){
-        ArrayList<Integer> input = new ArrayList<Integer>();
+    public int [] mergeSort(int [] input, int size) {
 
-        parseFile(filename, input);
-        //input.add(1);input.add(2);input.add(3);input.add(4);input.add(5);input.add(6);
-        //input.add(1);input.add(3);input.add(5);input.add(2);input.add(4);input.add(6);
-        //input.add(6);input.add(5);input.add(4);input.add(3);input.add(2);input.add(1);
+        if(size < 2) return input;
 
-        mergeSort(input);
+        int [] firstPart = new int[size/2];
+        int [] secondPart = new int[size - size/2];
 
-        System.out.print(inversionsCounter);
+        split(firstPart, secondPart, input, size);
+
+        firstPart = mergeSort(firstPart, size/2);
+        secondPart = mergeSort(secondPart, size - size/2);
+
+        return merge(firstPart, secondPart, size);
     }
 
-    private static ArrayList<Integer> mergeSort(ArrayList<Integer> input) {
-
-        if(input.size() < 2)
-            return input;
-
-        ArrayList<Integer> firstPart = new ArrayList<Integer>();
-        ArrayList<Integer> secondPart = new ArrayList<Integer>();
-
-        split(firstPart, secondPart, input);
-
-        firstPart = mergeSort(firstPart);
-        secondPart = mergeSort(secondPart);
-
-        return merge(firstPart, secondPart);
+    private void split(int [] one, int [] two, int [] input ,int size){
+        System.arraycopy(input, 0     , one, 0, size/2);
+        System.arraycopy(input, size/2, two, 0, size - size/2);
     }
 
-    private static void split(ArrayList<Integer> one,ArrayList<Integer> two,ArrayList<Integer> input ){
-         for(int i = 0;i<input.size();i++)
-             if(i < input.size()/2)
-                 one.add(input.get(i));
-             else
-                 two.add(input.get(i));
+    private int [] merge(int [] one, int [] two, int size) {
 
-    }
-
-    private static ArrayList<Integer> merge(ArrayList<Integer> one, ArrayList<Integer> two) {
-
-        ArrayList<Integer> result = new ArrayList<Integer>();
         int i = 0, j = 0;
-        while (result.size()!= (one.size() + two.size())) {
+        int [] result = new int [size];
 
-           if( j >= two.size() )  {
-
-                result.add(one.get(i));
-                i++;
-            } else if (i >= one.size()){
-
-                result.add(two.get(j));
-                j++;
-            } else if( one.get(i) <  two.get(j)){
-
-               result.add(one.get(i));
-               i++;
-            } else {
-               inversionsCounter += one.size() - i;
-               result.add(two.get(j));
-               j++;
-            }
-        }
+        while (size != (j + i))
+            if      (j >= size - size/2)     result[i+j] = one[i++];
+            else if (i >= size/2)            result[i+j] = two[j++];
+            else if (one[i] < two[j])        result[i+j] = one[i++];
+            else { inversions += size/2 - i; result[i+j] = two[j++];}
 
         return result;
     }
 
-    private static void parseFile(String filename, ArrayList<Integer> input ) {
-        String dir = System.getProperty("user.dir")+ "\\hw1\\src";
-        try {
-
-            BufferedReader br = new BufferedReader(new FileReader(new File(dir+filename)));
-            while(true){
-                String line = br.readLine();
-                if(line == null)
-                    break;
-                int nextNum = Integer.parseInt(line);
-
-                if(nextNum == 0)
-                    break;
-
-                input.add(nextNum);
-
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+    public long getInversionsCount(){
+        return inversions;
     }
+
 }
