@@ -1,4 +1,7 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Random;
 
 public class RandomizedContractionAlgorithm {
    /*
@@ -6,7 +9,7 @@ public class RandomizedContractionAlgorithm {
     * 1) while there are > 2 vertices
     * 2) pick the remaining edge(u,v) uniformly at random
     * 3) merge u and v in a single vertex
-    * 4) remove self loop
+    * 4)    remove self loop
     * 5) return cut represented by 2 final vertices
     */
 
@@ -15,14 +18,8 @@ public class RandomizedContractionAlgorithm {
         int randomVertex = 0;
 
         while(data.size() > 2){
-            randomVertex = selectRandomVertex(data);
-            
-            ArrayList<Integer> randomEdges = data.get(randomVertex);
-
-            int edgeToMergeWith = selectRandomEdge(randomEdges);
-
-            if(edgeToMergeWith != randomVertex)
-                merge(randomVertex, edgeToMergeWith,data);
+            randomVertex = selectRandom(new ArrayList<Integer>(data.keySet()));
+            merge(randomVertex, selectRandom(data.get(randomVertex)), data);
         }
 
         return data.get(randomVertex).size();
@@ -44,14 +41,6 @@ public class RandomizedContractionAlgorithm {
         }
 
         data.remove(twoID);
-    }
-
-    private int selectRandomEdge(ArrayList<Integer> edges) {
-        return selectRandom(edges);
-    }
-
-    private int selectRandomVertex(HashMap<Integer,ArrayList<Integer>> data){
-        return selectRandom(new ArrayList<Integer>(data.keySet()));
     }
 
     private int selectRandom(ArrayList<Integer> edges) {

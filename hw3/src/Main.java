@@ -19,6 +19,7 @@ public class Main {
         int solution = findMinCut(data);
         System.out.println(solution);
     }
+
     public static int findMinCut(HashMap<Integer,ArrayList<Integer>> data) {
 
         int numOfItter = 100;
@@ -79,6 +80,6 @@ public class Main {
             currentNodeConnections.add(Integer.parseInt(newEntry[i]));
         }
 
-        data.put(key,currentNodeConnections);
+        data.put(key, currentNodeConnections);
     }
 }
