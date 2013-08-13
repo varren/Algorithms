@@ -13,7 +13,7 @@ import java.util.*;
 
 public class Main {
 
-    /* https://class.coursera.org/algo-004/quiz/feedback?submission_id=286921
+    /* https://class.coursera.org/algo-004/quiz/
     The file contains the edges of a directed graph. Vertices are labeled as positive integers from 1 to 875714.
 
     Every row indicates an edge, the vertex label in first column is the tail
