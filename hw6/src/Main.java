@@ -2,7 +2,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.PriorityQueue;
+
 
 public class Main {
     private static final String testFilesDir = System.getProperty("user.dir") + "\\hw6\\src";
